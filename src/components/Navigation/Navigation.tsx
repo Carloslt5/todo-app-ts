@@ -1,16 +1,15 @@
-import { useContext, useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
-import { AuthContext } from '@/contexts/auth.context'
-import { AuthContextType } from '@/contexts/Types/AuthContext.types'
 import Logo from '@/components/icons/Logo'
-import { MdSunny, MdBedtime, MdKeyboardArrowRight, MdKeyboardArrowLeft } from 'react-icons/md'
-import { getNoUserMenuConstants, getUserMenuConstants, APP_NAME } from '@/const/Menu-const'
-
-const initialThemeMode = localStorage.getItem('theme') === 'dark'
+import { APP_NAME, getNoUserMenuConstants, getUserMenuConstants } from '@/const/Menu-const'
+import { AuthContext } from '@/contexts/auth.context'
+import { useThemeContext } from '@/hooks/themeContext-Hook'
+import { AuthContextType } from '@/interfaces/AuthContext.types'
+import { useContext, useEffect, useState } from 'react'
+import { MdBedtime, MdKeyboardArrowLeft, MdKeyboardArrowRight, MdSunny } from 'react-icons/md'
+import { Link } from 'react-router-dom'
 
 const Navigation = () => {
 
-  const [darkMode, setDarkMode] = useState(initialThemeMode)
+  const {darkMode, toggleThemeHandler} = useThemeContext()
   const [toggleMenuOpen, setToggleMenuOpen] = useState(false)
   const { user, logout } = useContext(AuthContext) as AuthContextType
 
@@ -26,9 +25,6 @@ const Navigation = () => {
 
   const toggleMenu = () => {
     setToggleMenuOpen(!toggleMenuOpen)
-  }
-  const toggleThemeHandler = () => {
-    setDarkMode(!darkMode)
   }
 
   return (

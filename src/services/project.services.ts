@@ -1,26 +1,28 @@
 import axios, { AxiosInstance, AxiosResponse } from 'axios'
-import { ProjectData } from '../types/Project.type'
+import { ProjectData } from '../interfaces/Project.type'
 
 class ProjectServices {
-
   instance: AxiosInstance
 
   constructor() {
     this.instance = axios.create({
-      baseURL: import.meta.env.VITE_REACT_API_URL
+      baseURL: import.meta.env.VITE_REACT_API_URL,
     })
 
-    this.instance.interceptors.request.use((config) => {
-      const storedToken = localStorage.getItem('authToken')
+    this.instance.interceptors.request.use(
+      (config) => {
+        const storedToken = localStorage.getItem('authToken')
 
-      if (storedToken) {
-        config.headers['Authorization'] = `Bearer ${storedToken}`
+        if (storedToken) {
+          config.headers['Authorization'] = `Bearer ${storedToken}`
+        }
+
+        return config
+      },
+      (error) => {
+        return Promise.reject(error)
       }
-
-      return config
-    }, (error) => {
-      return Promise.reject(error)
-    })
+    )
   }
 
   getOneProject(projectId: string): Promise<AxiosResponse<ProjectData>> {
@@ -42,7 +44,6 @@ class ProjectServices {
   deleteProject(projectId: string) {
     return this.instance.delete(`/project/deleteProject/${projectId}`)
   }
-
 }
 
 const projectservices = new ProjectServices()

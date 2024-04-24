@@ -1,15 +1,13 @@
-
-import { ReactNode, createContext, useCallback, useState } from 'react'
-import { TodoData } from '@/types/Todo.type'
-import todoservices from '@/services/ToDo.services'
-import { ToDoContextType } from '@/contexts/Types/ToDoContext.types'
 import { EditedContent } from '@/contexts/ticket.context'
+import { ToDoContextType } from '@/interfaces/ToDoContext.types'
+import { TodoData } from '@/interfaces/Todo.type'
+import todoservices from '@/services/ToDo.services'
 import { AxiosError } from 'axios'
+import { ReactNode, createContext, useCallback, useState } from 'react'
 import { toast } from 'react-toastify'
 
 export const ToDoContext = createContext<ToDoContextType | null>(null)
 export function ToDoProviderWrapper({ children }: { children: ReactNode }) {
-
   const [todoData, setTodoData] = useState<TodoData[] | []>([])
   const [todoDataBackup, setTodoDataBackup] = useState<TodoData[]>(todoData)
 
@@ -27,7 +25,7 @@ export function ToDoProviderWrapper({ children }: { children: ReactNode }) {
 
   const addTodo = async (userID: string, todo: TodoData, ticketID: string) => {
     try {
-      setTodoData([...todoData ?? [], todo])
+      setTodoData([...(todoData ?? []), todo])
       loadToDos(userID, ticketID)
     } catch (error) {
       console.log(error)
@@ -91,8 +89,9 @@ export function ToDoProviderWrapper({ children }: { children: ReactNode }) {
         deleteToDo,
         // changeFilter,
         // clearCompleted
-      }}>
+      }}
+    >
       {children}
-    </ToDoContext.Provider >
+    </ToDoContext.Provider>
   )
 }

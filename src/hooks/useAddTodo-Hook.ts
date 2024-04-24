@@ -1,23 +1,22 @@
-import { useContext, useState } from 'react'
-import todoservices from '@/services/ToDo.services'
-import { useParams } from 'react-router-dom'
 import { ToDoContext } from '@/contexts/todo.context'
-import { ToDoContextType } from '@/contexts/Types/ToDoContext.types'
-import { useForm } from 'react-hook-form'
+import { ToDoContextType } from '@/interfaces/ToDoContext.types'
+import { TodoData } from '@/interfaces/Todo.type'
+import { ValidationError } from '@/interfaces/ValidationError.type'
+import todoservices from '@/services/ToDo.services'
 import { AxiosError } from 'axios'
-import { TodoData } from '@/types/Todo.type'
+import { useContext, useState } from 'react'
+import { useForm } from 'react-hook-form'
+import { useParams } from 'react-router-dom'
 import { toast } from 'react-toastify'
-import { ValidationError } from '@/types/ValidationError.type'
 
 export const useAddTodo = (ticketID: string) => {
-
   const { id: userID } = useParams()
   const { addTodo } = useContext(ToDoContext) as ToDoContextType
 
   const todoForm = useForm<TodoData>({
     defaultValues: {
-      title: ''
-    }
+      title: '',
+    },
   })
 
   const { register, handleSubmit } = todoForm
@@ -45,5 +44,4 @@ export const useAddTodo = (ticketID: string) => {
     newTicketErrors,
     todoSubmithandler,
   }
-
 }

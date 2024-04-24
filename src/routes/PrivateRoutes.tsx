@@ -1,8 +1,8 @@
+import Loading from '@/components/Loading/Loading'
+import { AuthContext } from '@/contexts/auth.context'
+import { AuthContextType } from '@/interfaces/AuthContext.types'
 import { useContext, useEffect } from 'react'
 import { Outlet, useNavigate } from 'react-router-dom'
-import { AuthContext } from '@/contexts/auth.context'
-import { AuthContextType } from '@/contexts/Types/AuthContext.types'
-import Loading from '@/components/Loading/Loading'
 
 const PrivateRoutes = () => {
 

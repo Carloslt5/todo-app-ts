@@ -1,5 +1,5 @@
-import { MdHome, MdDashboard, MdOutlineLogin, MdLogout } from 'react-icons/md'
-import { UserData } from '../contexts/Types/AuthContext.types'
+import { MdDashboard, MdHome, MdLogout, MdOutlineLogin } from 'react-icons/md'
+import { UserData } from '../interfaces/AuthContext.types'
 
 export const APP_NAME = 'TODO-APP'
 

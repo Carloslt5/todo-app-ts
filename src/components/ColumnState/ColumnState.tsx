@@ -1,25 +1,17 @@
-import { IState } from '@/types/State.type'
 import EachState from '@/components/EachState/EachState'
 import EachTicket from '@/components/EachTicket/EachTicket'
+import NewTicketForm from '@/components/Forms/NewTicketForm'
 import Loading from '@/components/Loading/Loading'
 import ModalForm from '@/components/ModalForm/ModalForm'
+import { IState } from '@/interfaces/State.type'
 import { MdAdd } from 'react-icons/md'
-import NewTicketForm from '@/components/Forms/NewTicketForm'
 import { useModalHook } from '../../hooks/useModal-Hook'
 import { useDragAndDrop } from './useDragAndDrop-Hook'
 
 const ColumnState: React.FC<IState> = (state) => {
+  const { ticketData, isOver, drop } = useDragAndDrop(state)
 
-  const {
-    ticketData,
-    isOver,
-    drop
-  } = useDragAndDrop(state)
-
-  const {
-    showModal,
-    toggleModal
-  } = useModalHook()
+  const { showModal, toggleModal } = useModalHook()
 
   return (
     <>
@@ -30,41 +22,36 @@ const ColumnState: React.FC<IState> = (state) => {
         >
           <EachState stateData={state} />
 
-          <article className={`py-2 overflow-y-scroll rounded ${isOver && 'bg-slate-950 dark:bg-zinc-700'}`}>
+          <article
+            className={`py-2 overflow-y-scroll rounded ${isOver && 'bg-slate-950 dark:bg-zinc-700'}`}
+          >
             <ul className='flex flex-col gap-2 overflow-y-hidden'>
-              {
-                !ticketData
-                  ? <Loading />
-                  : ticketData
-                    .filter((ticket) => ticket.state._id === state._id)
-                    .map((ticket) => (
-                      <EachTicket key={ticket._id} {...ticket} />
-                    ))
-              }
+              {!ticketData ? (
+                <Loading />
+              ) : (
+                ticketData
+                  .filter((ticket) => ticket.state._id === state._id)
+                  .map((ticket) => <EachTicket key={ticket._id} {...ticket} />)
+              )}
             </ul>
           </article>
 
           <button
             className='flex items-center w-full gap-2 p-1 rounded h-fit hover:bg-gray-900 dark:hover:bg-zinc-800 focus-outline-none '
-            onClick={toggleModal}>
+            onClick={toggleModal}
+          >
             <MdAdd />
-            <p >Add Ticket...</p>
+            <p>Add Ticket...</p>
           </button>
         </article>
-      </li >
+      </li>
 
-      {
-        showModal &&
-        <ModalForm >
-          <NewTicketForm
-            data={state}
-            onCancel={toggleModal}
-          />
-        </ModalForm >
-      }
-
+      {showModal && (
+        <ModalForm>
+          <NewTicketForm data={state} onCancel={toggleModal} />
+        </ModalForm>
+      )}
     </>
-
   )
 }
 

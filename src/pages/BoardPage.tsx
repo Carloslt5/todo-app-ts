@@ -1,14 +1,14 @@
-import { useContext } from 'react'
-import { AuthContext } from '@/contexts/auth.context'
-import { AuthContextType } from '@/contexts/Types/AuthContext.types'
-import { Link } from 'react-router-dom'
-import { MdPostAdd } from 'react-icons/md'
 import EachBoard from '@/components/EachBoard/EachBoard'
+import BoardForm from '@/components/Forms/BoardForm'
 import Loading from '@/components/Loading/Loading'
 import ModalForm from '@/components/ModalForm/ModalForm'
-import BoardForm from '@/components/Forms/BoardForm'
+import { AuthContext } from '@/contexts/auth.context'
 import { useKanbanBoard } from '@/hooks/useKanbanBoard-Hooks'
 import { useModalHook } from '@/hooks/useModal-Hook'
+import { AuthContextType } from '@/interfaces/AuthContext.types'
+import { useContext } from 'react'
+import { MdPostAdd } from 'react-icons/md'
+import { Link } from 'react-router-dom'
 
 const BoardPage = () => {
   const { user } = useContext(AuthContext) as AuthContextType

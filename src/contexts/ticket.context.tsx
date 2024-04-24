@@ -1,9 +1,9 @@
-import { createContext, ReactNode, useCallback, useState } from 'react'
-import { ITicketData } from '@/types/Ticket.type'
-import ticketservices from '@/services/ticket.services'
+import { ITicketData } from '@/interfaces/Ticket.type'
 import stateservices from '@/services/state.services'
-import { toast } from 'react-toastify'
+import ticketservices from '@/services/ticket.services'
 import { AxiosError } from 'axios'
+import { createContext, ReactNode, useCallback, useState } from 'react'
+import { toast } from 'react-toastify'
 
 export interface EditedContent {
   _id?: string
@@ -75,11 +75,16 @@ export function TicketProviderWrapper({ children }: { children: ReactNode }) {
     await ticketservices.updateTicketDetails(ticketID, editedContent)
   }
 
-  const value = { ticketData, setTicketData, loadTicket, deleteTicket, deleteState, updateTicketPriority, updateTickettTitle, updateTicketDetails }
+  const value = {
+    ticketData,
+    setTicketData,
+    loadTicket,
+    deleteTicket,
+    deleteState,
+    updateTicketPriority,
+    updateTickettTitle,
+    updateTicketDetails,
+  }
 
-  return (
-    <TicketContext.Provider value={value}>
-      {children}
-    </TicketContext.Provider >
-  )
+  return <TicketContext.Provider value={value}>{children}</TicketContext.Provider>
 }

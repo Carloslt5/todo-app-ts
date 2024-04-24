@@ -1,13 +1,13 @@
-import { useContext, useState } from 'react'
-import ticketservices from '@/services/ticket.services'
-import { useParams } from 'react-router-dom'
-import { IState } from '@/types/State.type'
-import { EditedContent, TicketContext, TicketContextType } from '@/contexts/ticket.context'
 import { TICKET_PRIORITY } from '@/const/Ticket-Priority'
+import { EditedContent, TicketContext, TicketContextType } from '@/contexts/ticket.context'
+import { IState } from '@/interfaces/State.type'
+import ticketservices from '@/services/ticket.services'
+import { useContext, useState } from 'react'
 import { useForm } from 'react-hook-form'
+import { useParams } from 'react-router-dom'
 
+import { ValidationError } from '@/interfaces/ValidationError.type'
 import { AxiosError } from 'axios'
-import { ValidationError } from '@/types/ValidationError.type'
 
 interface NewTicketFormProps {
   data: IState
@@ -22,8 +22,8 @@ const NewTicketForm: React.FC<NewTicketFormProps> = ({ onCancel, data: { _id: st
     defaultValues: {
       title: '',
       description: '',
-      priority: 'Low'
-    }
+      priority: 'Low',
+    },
   })
 
   const { register, handleSubmit } = newTicketData
@@ -44,16 +44,12 @@ const NewTicketForm: React.FC<NewTicketFormProps> = ({ onCancel, data: { _id: st
   }
 
   return (
-    <div
-      className='modal-form'>
+    <div className='modal-form'>
       <div className='flex justify-between'>
         <h1 className='text-2xl text-white '>New Ticket</h1>
       </div>
       <hr className='mb-4' />
-      <form
-        className='flex flex-col gap-2 text-slate-500 '
-        onSubmit={handleSubmit(onSubmit)}
-      >
+      <form className='flex flex-col gap-2 text-slate-500 ' onSubmit={handleSubmit(onSubmit)}>
         <input
           autoFocus
           className='input-standard text-zinc-700 dark:text-zinc-700'
@@ -81,36 +77,31 @@ const NewTicketForm: React.FC<NewTicketFormProps> = ({ onCancel, data: { _id: st
               />
               <label
                 className='inline-block pl-[0.15rem] hover:cursor-pointer'
-                htmlFor={`checkbox${index}`}>
+                htmlFor={`checkbox${index}`}
+              >
                 {el}
               </label>
             </li>
           ))}
         </ul>
         <div>
-          {
-            newTicketErrors.length > 0 && newTicketErrors
-              .map((elem, index) => <p key={index} className='form-error'>{elem.message}</p>)
-          }
+          {newTicketErrors.length > 0 &&
+            newTicketErrors.map((elem, index) => (
+              <p key={index} className='form-error'>
+                {elem.message}
+              </p>
+            ))}
         </div>
         <div className='flex flex-row-reverse items-center gap-2 mt-4 items-strech'>
-
-          <button
-            className='flex items-center btn-add'
-          >
+          <button className='flex items-center btn-add'>
             <span>Create Ticket</span>
           </button>
-          <button
-            className='btn-cancel'
-            onClick={handleCancel}
-          >
+          <button className='btn-cancel' onClick={handleCancel}>
             <span>Cancel</span>
           </button>
-
         </div>
-      </form >
+      </form>
     </div>
-
   )
 }
 

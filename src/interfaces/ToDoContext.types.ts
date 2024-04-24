@@ -1,5 +1,5 @@
-import { TodoData } from '@/types/Todo.type'
-import { EditedContent } from '../ticket.context'
+import { TodoData } from '@/interfaces/Todo.type'
+import { EditedContent } from '../contexts/ticket.context'
 
 export interface ToDoContextType {
   todoData: TodoData[] | []

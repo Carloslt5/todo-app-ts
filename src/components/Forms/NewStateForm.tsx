@@ -1,9 +1,9 @@
+import { ProjectContext, ProjectContextType } from '@/contexts/project.context'
+import { ValidationError } from '@/interfaces/ValidationError.type'
+import stateservices from '@/services/state.services'
+import { AxiosError } from 'axios'
 import { useContext, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import stateservices from '@/services/state.services'
-import { ProjectContext, ProjectContextType } from '@/contexts/project.context'
-import { AxiosError } from 'axios'
-import { ValidationError } from '@/types/ValidationError.type'
 
 interface NewStateFormProps {
   modalTitle: string
@@ -41,18 +41,13 @@ const NewStateForm: React.FC<NewStateFormProps> = ({ modalTitle, onCancel }) => 
   }
 
   return (
-
     <>
-      <div
-        className='modal-form'>
-        <div className='flex justify-between' >
+      <div className='modal-form'>
+        <div className='flex justify-between'>
           <h1 className='text-2xl text-white '>{modalTitle}</h1>
         </div>
         <hr className='mb-4' />
-        <form
-          className='flex flex-col '
-          onSubmit={todoSubmithandler}
-        >
+        <form className='flex flex-col ' onSubmit={todoSubmithandler}>
           <input
             autoFocus
             className='input-standard text-zinc-700'
@@ -60,28 +55,22 @@ const NewStateForm: React.FC<NewStateFormProps> = ({ modalTitle, onCancel }) => 
             name='stateName'
             placeholder='New State...'
             onChange={handlerInputChange}
-
           />
 
-          {
-            stateError.length > 0 && stateError
-              .map((elem, index) => <p key={index} className='form-error'>{elem.message}</p>)
-          }
+          {stateError.length > 0 &&
+            stateError.map((elem, index) => (
+              <p key={index} className='form-error'>
+                {elem.message}
+              </p>
+            ))}
 
           <div className='flex flex-row-reverse items-center gap-2 mt-4 items-strech'>
-
-            <button
-              className='flex items-center btn-add'
-            >
+            <button className='flex items-center btn-add'>
               <span>Add State</span>
             </button>
-            <button
-              className='btn-cancel'
-              onClick={handleCancel}
-            >
+            <button className='btn-cancel' onClick={handleCancel}>
               <span>Cancel</span>
             </button>
-
           </div>
         </form>
       </div>

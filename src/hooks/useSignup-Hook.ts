@@ -1,17 +1,17 @@
+import { ValidationError } from '@/interfaces/ValidationError.type'
 import authservices from '@/services/auth.services'
-import { useNavigate } from 'react-router-dom'
-import { useForm } from 'react-hook-form'
 import { AxiosError } from 'axios'
 import { useState } from 'react'
+import { useForm } from 'react-hook-form'
+import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
-import { ValidationError } from '@/types/ValidationError.type'
 
 type SignUpData = {
   firstName: string
   lastName: string
   email: string
   password: string
-}
+};
 
 export const useSignup = () => {
   const form = useForm({

@@ -1,26 +1,28 @@
 import axios, { AxiosInstance, AxiosResponse } from 'axios'
-import { TodoData } from '../types/Todo.type'
 import { EditedContent } from '../contexts/ticket.context'
+import { TodoData } from '../interfaces/Todo.type'
 
 class ToDoServices {
-
   instance: AxiosInstance
 
   constructor() {
     this.instance = axios.create({
-      baseURL: import.meta.env.VITE_REACT_API_URL
+      baseURL: import.meta.env.VITE_REACT_API_URL,
     })
-    this.instance.interceptors.request.use((config) => {
-      const storedToken = localStorage.getItem('authToken')
+    this.instance.interceptors.request.use(
+      (config) => {
+        const storedToken = localStorage.getItem('authToken')
 
-      if (storedToken) {
-        config.headers['Authorization'] = `Bearer ${storedToken}`
+        if (storedToken) {
+          config.headers['Authorization'] = `Bearer ${storedToken}`
+        }
+
+        return config
+      },
+      (error) => {
+        return Promise.reject(error)
       }
-
-      return config
-    }, (error) => {
-      return Promise.reject(error)
-    })
+    )
   }
 
   getAllToDos(userID: string): Promise<AxiosResponse<TodoData[]>> {
@@ -54,7 +56,6 @@ class ToDoServices {
   updateTodoOrder(userID: string, updatedOrder: object[]) {
     return this.instance.put(`/todos/${userID}/updateTodoOrder/`, { updatedOrder })
   }
-
 }
 
 const todoservices = new ToDoServices()

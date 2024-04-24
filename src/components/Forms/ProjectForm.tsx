@@ -1,12 +1,12 @@
-import React, { useContext, useState } from 'react'
-import projectservices from '@/services/project.services'
 import { KanbanContext, KanbanContextType } from '@/contexts/kanban.context'
-import { useParams } from 'react-router-dom'
-import { useForm } from 'react-hook-form'
-import { ProjectData } from '@/types/Project.type'
+import { ProjectData } from '@/interfaces/Project.type'
+import { ValidationError } from '@/interfaces/ValidationError.type'
+import projectservices from '@/services/project.services'
 import { AxiosError } from 'axios'
+import React, { useContext, useState } from 'react'
+import { useForm } from 'react-hook-form'
+import { useParams } from 'react-router-dom'
 import { toast } from 'react-toastify'
-import { ValidationError } from '@/types/ValidationError.type'
 
 interface ProjecFormProprs {
   kanbanID: string
@@ -26,7 +26,7 @@ const ProjectForm: React.FC<ProjecFormProprs> = ({ modalTitle, kanbanID, onCance
     defaultValues: {
       title: '',
       description: '',
-    }
+    },
   })
   const { register, handleSubmit } = projectForm
   const [projectErrors, setProjectErrors] = useState<ValidationError[]>([])
@@ -49,16 +49,12 @@ const ProjectForm: React.FC<ProjecFormProprs> = ({ modalTitle, kanbanID, onCance
   }
 
   return (
-    <div
-      className='modal-form'>
+    <div className='modal-form'>
       <div className='flex justify-between'>
         <h1 className='text-2xl text-white '>{modalTitle}</h1>
       </div>
       <hr className='mb-4' />
-      <form
-        className='flex flex-col gap-2'
-        onSubmit={handleSubmit(submitHandler)}
-      >
+      <form className='flex flex-col gap-2' onSubmit={handleSubmit(submitHandler)}>
         <input
           autoFocus
           className='input-standard text-slate-700 dark:text-zinc-700'
@@ -67,43 +63,37 @@ const ProjectForm: React.FC<ProjecFormProprs> = ({ modalTitle, kanbanID, onCance
           {...register('title')}
           required
         />
-        {
-          projectErrors.length > 0 && projectErrors
-            .filter(error => error.path[1] === 'title')
+        {projectErrors.length > 0 &&
+          projectErrors
+            .filter((error) => error.path[1] === 'title')
             .map((error, index) => (
-              <p key={index} className='form-error'>{error.message}</p>
-            ))
-        }
+              <p key={index} className='form-error'>
+                {error.message}
+              </p>
+            ))}
         <textarea
           className='h-10 input-standard text-zinc-700 dark:text-zinc-700 max-h-32'
           placeholder='Insert description...'
           {...register('description')}
         />
-        {
-          projectErrors.length > 0 && projectErrors
-            .filter(error => error.path[1] === 'description')
+        {projectErrors.length > 0 &&
+          projectErrors
+            .filter((error) => error.path[1] === 'description')
             .map((error, index) => (
-              <p key={index} className='form-error'>{error.message}</p>
-            ))
-        }
+              <p key={index} className='form-error'>
+                {error.message}
+              </p>
+            ))}
         <div className='flex flex-row-reverse items-center gap-2 items-strech'>
-
-          <button
-            className='flex items-center btn-add'
-          >
+          <button className='flex items-center btn-add'>
             <span>Add Project</span>
           </button>
-          <button
-            className='btn-cancel'
-            onClick={handleCancel}
-          >
+          <button className='btn-cancel' onClick={handleCancel}>
             <span>Cancel</span>
           </button>
-
         </div>
-      </form >
+      </form>
     </div>
-
   )
 }
 

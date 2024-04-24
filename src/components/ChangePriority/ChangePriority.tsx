@@ -1,6 +1,6 @@
-import { useState } from 'react'
 import { getPriorityColor } from '@/const/Ticket-Priority'
-import { ITicketData } from '@/types/Ticket.type'
+import { ITicketData } from '@/interfaces/Ticket.type'
+import { useState } from 'react'
 
 interface ChangeDetails {
   data: ITicketData
@@ -11,8 +11,12 @@ interface ChangeDetails {
 
 const priorityOptions = ['Low', 'Medium', 'High']
 
-const ChangePriority: React.FC<ChangeDetails> = ({ data: { _id: ticketID, priority }, entityId, updateEntity, updateEntityPriority }) => {
-
+const ChangePriority: React.FC<ChangeDetails> = ({
+  data: { _id: ticketID, priority },
+  entityId,
+  updateEntity,
+  updateEntityPriority,
+}) => {
   const [selectedPriority, setSelectedPriority] = useState(priority)
 
   const handlePriorityChange = async (event: React.ChangeEvent<HTMLSelectElement>) => {
@@ -33,10 +37,7 @@ const ChangePriority: React.FC<ChangeDetails> = ({ data: { _id: ticketID, priori
     <article className='flex items-center w-full gap-2 py-1 text-sm'>
       <p>Priority:</p>
       <div className={`${priorityColor} h-4 w-4 rounded-full`} />
-      <select className='text-slate-500'
-        value={selectedPriority}
-        onChange={handlePriorityChange}
-      >
+      <select className='text-slate-500' value={selectedPriority} onChange={handlePriorityChange}>
         {priorityOptions.map((option) => (
           <option key={option} value={option}>
             {option}

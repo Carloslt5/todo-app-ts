@@ -1,12 +1,12 @@
-import { useNavigate, useParams } from 'react-router-dom'
+import { AuthContext } from '@/contexts/auth.context'
 import { ProjectContext, ProjectContextType } from '@/contexts/project.context'
 import { EditedContent, TicketContext, TicketContextType } from '@/contexts/ticket.context'
+import { AuthContextType } from '@/interfaces/AuthContext.types'
 import projectservices from '@/services/project.services'
-import { AuthContext } from '@/contexts/auth.context'
-import { AuthContextType } from '@/contexts/Types/AuthContext.types'
 import { AxiosError } from 'axios'
-import { toast } from 'react-toastify'
 import { useContext, useEffect } from 'react'
+import { useNavigate, useParams } from 'react-router-dom'
+import { toast } from 'react-toastify'
 
 export const useProject = () => {
   const { kanbanBoardId, projectId } = useParams()

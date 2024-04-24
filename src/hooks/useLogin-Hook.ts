@@ -1,17 +1,17 @@
-import { useContext, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
-import authservices from '@/services/auth.services'
 import { AuthContext } from '@/contexts/auth.context'
-import { AuthContextType } from '@/contexts/Types/AuthContext.types'
-import { useForm } from 'react-hook-form'
+import { AuthContextType } from '@/interfaces/AuthContext.types'
+import { ValidationError } from '@/interfaces/ValidationError.type'
+import authservices from '@/services/auth.services'
 import { AxiosError } from 'axios'
+import { useContext, useState } from 'react'
+import { useForm } from 'react-hook-form'
+import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
-import { ValidationError } from '@/types/ValidationError.type'
 
 type LoginData = {
   email: string
   password: string
-}
+};
 
 export const useLogin = () => {
   const loginForm = useForm({

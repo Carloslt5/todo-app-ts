@@ -1,10 +1,10 @@
-import { IKanbanBoardData } from '@/types/KanbanBoard.type'
+import { IKanbanBoardData } from '@/interfaces/KanbanBoard.type'
+import { ValidationError } from '@/interfaces/ValidationError.type'
 import kanbanservices from '@/services/kanban.services'
-import { useForm } from 'react-hook-form'
-import { useState } from 'react'
 import { AxiosError } from 'axios'
+import { useState } from 'react'
+import { useForm } from 'react-hook-form'
 import { toast } from 'react-toastify'
-import { ValidationError } from '@/types/ValidationError.type'
 
 interface BoardFormProps {
   modalTitle: string
@@ -17,8 +17,8 @@ const BoardForm: React.FC<BoardFormProps> = ({ modalTitle, loadBoard, onCancel }
 
   const boardForm = useForm<IKanbanBoardData>({
     defaultValues: {
-      title: ''
-    }
+      title: '',
+    },
   })
 
   const { register, handleSubmit } = boardForm
@@ -40,17 +40,13 @@ const BoardForm: React.FC<BoardFormProps> = ({ modalTitle, loadBoard, onCancel }
   }
 
   return (
-    <div
-      className='modal-form'>
+    <div className='modal-form'>
       <div className='flex justify-between'>
         <h1 className='text-2xl text-white'>{modalTitle}</h1>
       </div>
       <hr className='mb-4' />
 
-      <form
-        className='flex flex-col gap-4 text-slate-500'
-        onSubmit={handleSubmit(submitHandler)}
-      >
+      <form className='flex flex-col gap-4 text-slate-500' onSubmit={handleSubmit(submitHandler)}>
         <input
           autoFocus
           className='input-standard text-zinc-700 dark:text-zinc-700'
@@ -58,27 +54,21 @@ const BoardForm: React.FC<BoardFormProps> = ({ modalTitle, loadBoard, onCancel }
           placeholder='Insert Board...'
           {...register('title')}
         />
-        {
-          boardErrors.length > 0 && boardErrors
-            .map((error, index) => <p key={index} className='form-error'>{error.message}</p>)
-        }
+        {boardErrors.length > 0 &&
+          boardErrors.map((error, index) => (
+            <p key={index} className='form-error'>
+              {error.message}
+            </p>
+          ))}
         <div className='flex flex-row-reverse items-center gap-2 items-strech'>
-
-          <button
-            type='submit'
-            className='flex items-center btn-add'
-          >
+          <button type='submit' className='flex items-center btn-add'>
             <span>Add Board</span>
           </button>
-          <button
-            className='btn-cancel'
-            onClick={handleCancel}
-          >
+          <button className='btn-cancel' onClick={handleCancel}>
             <span>Cancel</span>
           </button>
-
         </div>
-      </form >
+      </form>
     </div>
   )
 }

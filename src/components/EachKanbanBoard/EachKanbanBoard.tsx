@@ -1,4 +1,4 @@
-import { ProjectData } from '@/types/Project.type'
+import { ProjectData } from '@/interfaces/Project.type'
 
 const EachKanbanBoard: React.FC<ProjectData> = ({ title }) => {
   return (

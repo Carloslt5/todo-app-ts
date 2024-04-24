@@ -1,12 +1,21 @@
-import { useDrag } from 'react-dnd'
-import { ITicketData } from '@/types/Ticket.type'
 import { getPriorityColor } from '@/const/Ticket-Priority'
+import { useModalHook } from '@/hooks/useModal-Hook'
+import { ITicketData } from '@/interfaces/Ticket.type'
+import { useDrag } from 'react-dnd'
 import ModalForm from '../ModalForm/ModalForm'
 import TicketDetails from './TicketDetails'
-import { useModalHook } from '@/hooks/useModal-Hook'
 
-const EachTicket: React.FC<ITicketData> = ({ _id, title, state, description, completed, priority, project, owner, todos }) => {
-
+const EachTicket: React.FC<ITicketData> = ({
+  _id,
+  title,
+  state,
+  description,
+  completed,
+  priority,
+  project,
+  owner,
+  todos,
+}) => {
   const { showModal, toggleModal } = useModalHook()
 
   const [{ isDragging }, drag] = useDrag(() => ({
@@ -20,11 +29,11 @@ const EachTicket: React.FC<ITicketData> = ({ _id, title, state, description, com
       priority: priority,
       project: project,
       todos: todos,
-      owner: owner
+      owner: owner,
     },
     collect: (monitor) => ({
-      isDragging: !!monitor.isDragging()
-    })
+      isDragging: !!monitor.isDragging(),
+    }),
   }))
 
   const priorityColor = getPriorityColor(priority)
@@ -52,17 +61,13 @@ const EachTicket: React.FC<ITicketData> = ({ _id, title, state, description, com
         <article className='flex items-center justify-between w-full py-1'>
           <p>{title}</p>
         </article>
-      </li >
+      </li>
 
-      {
-        showModal &&
-        <ModalForm >
-          <TicketDetails
-            ticketDetails={ticketDetails}
-            toggleModal={toggleModal} />
-        </ModalForm >
-      }
-
+      {showModal && (
+        <ModalForm>
+          <TicketDetails ticketDetails={ticketDetails} toggleModal={toggleModal} />
+        </ModalForm>
+      )}
     </>
   )
 }

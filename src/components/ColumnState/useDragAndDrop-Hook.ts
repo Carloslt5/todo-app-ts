@@ -1,9 +1,9 @@
-import { useContext } from 'react'
 import { TicketContext, TicketContextType } from '@/contexts/ticket.context'
-import { ITicketData } from '@/types/Ticket.type'
+import { IState } from '@/interfaces/State.type'
+import { ITicketData } from '@/interfaces/Ticket.type'
 import ticketservices from '@/services/ticket.services'
+import { useContext } from 'react'
 import { useDrop } from 'react-dnd'
-import { IState } from '@/types/State.type'
 
 export const useDragAndDrop = (state: IState) => {
   const { ticketData, setTicketData } = useContext(TicketContext) as TicketContextType
@@ -12,13 +12,13 @@ export const useDragAndDrop = (state: IState) => {
     accept: 'Ticket',
     drop: (ticket: ITicketData) => addItemToSection(ticket),
     collect: (monitor) => ({
-      isOver: !!monitor.isOver()
-    })
+      isOver: !!monitor.isOver(),
+    }),
   }))
 
   const addItemToSection = (ticketToAdd: ITicketData) => {
-    setTicketData(prev => {
-      const updateTicket = prev?.map(ticket => {
+    setTicketData((prev) => {
+      const updateTicket = prev?.map((ticket) => {
         if (ticket._id === ticketToAdd._id) {
           return { ...ticket, state: state }
         }
@@ -32,6 +32,6 @@ export const useDragAndDrop = (state: IState) => {
     ticketData,
     isOver,
     drop,
-    addItemToSection
+    addItemToSection,
   }
 }

@@ -1,15 +1,15 @@
-import { Link } from 'react-router-dom'
-import { useContext } from 'react'
-import { MdPostAdd } from 'react-icons/md'
-import ProjectForm from '@/components/Forms/ProjectForm'
+import ChangeTitle from '@/components/ChangeTitle/ChangeTitle'
 import EachKanbanBoard from '@/components/EachKanbanBoard/EachKanbanBoard'
+import ProjectForm from '@/components/Forms/ProjectForm'
 import Loading from '@/components/Loading/Loading'
 import ModalForm from '@/components/ModalForm/ModalForm'
 import { AuthContext } from '@/contexts/auth.context'
-import { AuthContextType } from '@/contexts/Types/AuthContext.types'
-import ChangeTitle from '@/components/ChangeTitle/ChangeTitle'
-import { useUpdateKanbanHooks } from '@/hooks/useUpdateKanbanBoard-Hooks'
 import { useModalHook } from '@/hooks/useModal-Hook'
+import { useUpdateKanbanHooks } from '@/hooks/useUpdateKanbanBoard-Hooks'
+import { AuthContextType } from '@/interfaces/AuthContext.types'
+import { useContext } from 'react'
+import { MdPostAdd } from 'react-icons/md'
+import { Link } from 'react-router-dom'
 
 const KanbanBoardPage = () => {
   const { user } = useContext(AuthContext) as AuthContextType

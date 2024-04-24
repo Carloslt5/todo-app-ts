@@ -1,10 +1,10 @@
-import stateservices from '@/services/state.services'
-import { useParams } from 'react-router-dom'
 import { ProjectContext, ProjectContextType } from '@/contexts/project.context'
 import { TicketContext, TicketContextType } from '@/contexts/ticket.context'
-import { useForm } from 'react-hook-form'
+import { IState } from '@/interfaces/State.type'
+import stateservices from '@/services/state.services'
 import { useContext } from 'react'
-import { IState } from '@/types/State.type'
+import { useForm } from 'react-hook-form'
+import { useParams } from 'react-router-dom'
 import { useModalHook } from './useModal-Hook'
 
 export const useHandleState = (stateData: IState) => {
@@ -19,8 +19,8 @@ export const useHandleState = (stateData: IState) => {
   const stateForm = useForm<IState>({
     defaultValues: {
       _id: _id,
-      stateName: stateName
-    }
+      stateName: stateName,
+    },
   })
   const { register, handleSubmit } = stateForm
 
@@ -52,6 +52,6 @@ export const useHandleState = (stateData: IState) => {
     register,
     handleSubmit,
     submitHandler,
-    handlerDeleteStateAndTicket
+    handlerDeleteStateAndTicket,
   }
 }

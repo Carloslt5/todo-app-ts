@@ -1,15 +1,14 @@
-import { useContext } from 'react'
-import { ToDoContext } from '@/contexts/todo.context'
-import { ToDoContextType } from '@/contexts/Types/ToDoContext.types'
-import { useParams } from 'react-router-dom'
 import { EditedContent } from '@/contexts/ticket.context'
+import { ToDoContext } from '@/contexts/todo.context'
+import { ToDoContextType } from '@/interfaces/ToDoContext.types'
+import { TodoData } from '@/interfaces/Todo.type'
 import todoservices from '@/services/ToDo.services'
 import { AxiosError } from 'axios'
+import { useContext } from 'react'
+import { useParams } from 'react-router-dom'
 import { toast } from 'react-toastify'
-import { TodoData } from '@/types/Todo.type'
 
 export const useHandleTodo = (todo: TodoData, ticketID: string) => {
-
   const { id: userID } = useParams()
   const { _id: todoID } = todo
 
@@ -33,7 +32,6 @@ export const useHandleTodo = (todo: TodoData, ticketID: string) => {
     handlerUpdateTodo,
     handlerDeleteToDo,
     handlerLoadToDos,
-    handlerUpdateTitleToDo
+    handlerUpdateTitleToDo,
   }
-
 }

@@ -1,6 +1,6 @@
-import { ReactNode, createContext, useCallback, useState } from 'react'
-import { ProjectData } from '@/types/Project.type'
+import { ProjectData } from '@/interfaces/Project.type'
 import projectservices from '@/services/project.services'
+import { ReactNode, createContext, useCallback, useState } from 'react'
 
 export interface ProjectContextType {
   projectData: ProjectData | null
@@ -11,7 +11,6 @@ export interface ProjectContextType {
 export const ProjectContext = createContext<ProjectContextType | null>(null)
 
 export function ProjectProviderWrapper({ children }: { children: ReactNode }) {
-
   const [projectData, setProjectData] = useState<ProjectData | null>(null)
 
   const loadProject = useCallback(async (projectId: string) => {
@@ -33,10 +32,5 @@ export function ProjectProviderWrapper({ children }: { children: ReactNode }) {
 
   const value = { projectData, loadProject, deleteProject }
 
-  return (
-    <ProjectContext.Provider value={value}>
-      {children}
-    </ProjectContext.Provider >
-  )
-
+  return <ProjectContext.Provider value={value}>{children}</ProjectContext.Provider>
 }

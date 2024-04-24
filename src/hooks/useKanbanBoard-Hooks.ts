@@ -1,5 +1,5 @@
+import { IKanbanBoardData } from '@/interfaces/KanbanBoard.type'
 import kanbanservices from '@/services/kanban.services'
-import { IKanbanBoardData } from '@/types/KanbanBoard.type'
 import { AxiosError } from 'axios'
 import { useCallback, useEffect, useState } from 'react'
 import { toast } from 'react-toastify'
@@ -26,6 +26,6 @@ export const useKanbanBoard = () => {
 
   return {
     kanbanBoardData,
-    loadBoard
+    loadBoard,
   }
 }
